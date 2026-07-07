@@ -30,7 +30,7 @@ export default function Process() {
 
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 sm:gap-y-12 lg:grid-cols-4 lg:gap-x-[74px] lg:gap-y-0">
           {STEPS.map((step, i) => (
-            <Reveal key={step.n} delay={i * 100} className="group relative">
+            <Reveal key={step.n} delay={i * 100} className="group relative flex flex-col items-center text-center sm:items-start sm:text-left">
               <div className="step-shadow relative flex h-14 w-14 items-center justify-center rounded-full border border-brand bg-brand transition-all duration-300 group-hover:scale-110 sm:h-16 sm:w-16">
                 <span className="text-[18px] font-bold text-white sm:text-[22px]">{step.n}</span>
               </div>

@@ -3,9 +3,9 @@ import Image from 'next/image';
 export default function Footer() {
   return (
     <footer className="border-t border-ink/[0.09]">
-      <div className="flex flex-col gap-10 px-4 pt-12 pb-8 sm:px-8 sm:pt-14 md:flex-row md:flex-wrap md:gap-8 lg:flex-nowrap lg:gap-0 lg:px-[96px] lg:pt-[54px] lg:pb-10">
+      <div className="flex flex-col items-center gap-10 px-4 pt-12 pb-8 text-center sm:px-8 sm:pt-14 md:flex-row md:flex-wrap md:items-start md:gap-8 md:text-left lg:flex-nowrap lg:gap-0 lg:px-[96px] lg:pt-[54px] lg:pb-10">
         <div className="w-full md:w-auto lg:w-[351px] lg:pl-[40px]">
-          <a href="#" className="flex items-center">
+          <a href="#" className="flex items-center justify-center md:justify-start">
             <Image src="/images/header-logo.png" alt="Alttred Miinds" width={300} height={74} className="h-10 w-auto sm:h-12 lg:h-[63px]" />
           </a>
         </div>
