@@ -16,7 +16,7 @@ export default function Navbar() {
 
   return (
     <header className="relative z-30 pt-5 sm:pt-7 lg:pt-9">
-      <Container>
+      <Container className="lg:px-3">
       <div className="nav-shadow flex h-[64px] items-center justify-between rounded-full border border-ink/[0.09] bg-white pl-4 pr-2 sm:pl-6 lg:h-[76px] lg:pl-10 lg:pr-[15px]">
         <a href="#" className="flex items-center">
           <Image

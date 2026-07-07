@@ -10,9 +10,9 @@ export default function Footer() {
           </a>
         </div>
 
-        <div className="w-1/2 md:w-[220px] lg:w-[283px]">
+        <div className="w-full md:w-[220px] lg:w-[283px]">
           <p className="text-[13px] font-bold text-ink">Services</p>
-          <ul className="mt-4 space-y-[11px] text-sm text-muted">
+          <ul className="mt-4 space-y-[11px] whitespace-nowrap text-sm text-muted">
             <li><a href="#services" className="transition hover:text-ink">Performance Marketing</a></li>
             <li><a href="#services" className="transition hover:text-ink">SEO • AIO • GEO</a></li>
             <li><a href="#services" className="transition hover:text-ink">Conversion Rate Optimization</a></li>
@@ -21,17 +21,17 @@ export default function Footer() {
           </ul>
         </div>
 
-        <div className="w-1/2 md:w-[280px] lg:w-[360px]">
+        <div className="w-full md:w-[280px] lg:w-[360px]">
           <p className="text-[13px] font-bold text-ink">Industries</p>
-          <div className="mt-4 grid grid-cols-2 gap-x-4">
-            <ul className="space-y-[11px] text-sm text-muted">
+          <div className="mt-4 grid grid-cols-1 gap-x-4 sm:grid-cols-2">
+            <ul className="space-y-[11px] whitespace-nowrap text-sm text-muted">
               <li>Healthcare</li>
               <li>D2C &amp; eCommerce</li>
               <li>SaaS</li>
               <li>Real Estate</li>
               <li>Education</li>
             </ul>
-            <ul className="space-y-[11px] text-sm text-muted">
+            <ul className="space-y-[11px] whitespace-nowrap text-sm text-muted">
               <li>Manufacturing</li>
               <li>Professional Services</li>
               <li>Finance</li>
