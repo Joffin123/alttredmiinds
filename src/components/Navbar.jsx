@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import Container from './Container';
 
 const LINKS = [
   { href: '#services', label: 'Services' },
@@ -14,7 +15,8 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="relative z-30 px-4 pt-5 sm:px-8 sm:pt-7 lg:px-[130px] lg:pt-9">
+    <header className="relative z-30 pt-5 sm:pt-7 lg:pt-9">
+      <Container>
       <div className="nav-shadow flex h-[64px] items-center justify-between rounded-full border border-ink/[0.09] bg-white pl-4 pr-2 sm:pl-6 lg:h-[76px] lg:pl-10 lg:pr-[15px]">
         <a href="#" className="flex items-center">
           <Image
@@ -39,11 +41,11 @@ export default function Navbar() {
         <div className="flex items-center gap-2">
           <a
             href="#cta"
-            className="hidden h-[46px] items-center gap-3 rounded-full bg-ink pl-[19px] pr-2.5 transition duration-300 hover:scale-[1.03] hover:opacity-90 active:scale-95 lg:flex"
+            className="group hidden h-[46px] items-center gap-3 rounded-full bg-ink pl-[19px] pr-2.5 transition-all duration-300 hover:scale-[1.02] hover:opacity-95 active:scale-95 lg:flex"
           >
             <span className="text-sm font-medium text-white">Book a Call</span>
-            <span className="flex h-[26px] w-[26px] items-center justify-center rounded-full bg-brand">
-              <svg width="8" height="10" viewBox="0 0 6 10" fill="none">
+            <span className="flex h-[26px] w-[26px] items-center justify-center rounded-full bg-brand transition-transform duration-300 ease-out group-hover:scale-105">
+              <svg width="8" height="10" viewBox="0 0 6 10" fill="none" className="transition-transform duration-300 ease-out group-hover:translate-x-[2px]">
                 <path d="M1 1L4.573 4.246a.35.35 0 0 1 0 .508L1 9" stroke="#fff" strokeWidth="1.4" strokeLinecap="round" />
               </svg>
             </span>
@@ -94,6 +96,7 @@ export default function Navbar() {
           </div>
         </div>
       </div>
+      </Container>
     </header>
   );
 }

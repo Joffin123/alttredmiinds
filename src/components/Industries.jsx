@@ -15,8 +15,10 @@ const INDUSTRIES = [
 function Pill({ item }) {
   return (
     <span
-      className={`flex h-[40px] shrink-0 items-center rounded-full border border-ink/[0.09] px-4 text-[13px] font-medium transition hover:-translate-y-0.5 hover:shadow-md sm:h-[45px] sm:px-[18px] sm:text-[14.5px] ${
-        item.active ? 'bg-brand text-white' : 'bg-white text-ink'
+      className={`flex h-[40px] shrink-0 items-center rounded-full border px-4 text-[13px] font-medium transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-lg sm:h-[45px] sm:px-[18px] sm:text-[14.5px] cursor-pointer ${
+        item.active 
+          ? 'bg-brand text-white border-brand hover:shadow-[0_10px_20px_rgba(31,111,74,0.2)]' 
+          : 'bg-white text-ink border-ink/[0.09] hover:bg-cream hover:border-ink/[0.15]'
       }`}
     >
       {item.label}
@@ -26,8 +28,8 @@ function Pill({ item }) {
 
 export default function Industries() {
   return (
-    <section id="industries" className="pt-16 sm:pt-20 lg:pt-[85px]">
-      <div className="mx-4 mb-8 h-px bg-hairline sm:mx-8 sm:mb-10 lg:mx-[101px] lg:mb-[39px]"></div>
+    <section id="industries" className="pt-12 sm:pt-16 lg:pt-[59px]">
+      <div className="mx-4 mb-8 h-px bg-hairline sm:mx-8 sm:mb-10 lg:mx-[96px] lg:mb-[39px]"></div>
       <Reveal as="p" className="text-center text-[12px] font-semibold uppercase tracking-[0.08em] text-brand sm:text-[13px]">
         Industries
       </Reveal>
@@ -35,7 +37,7 @@ export default function Industries() {
         Growth expertise across your sector
       </Reveal>
 
-      <div className="relative mt-8 overflow-hidden sm:mt-10 lg:mt-[46px]">
+      <div className="relative mt-8 overflow-hidden sm:mt-10 lg:mt-[20px] lg:mx-[96px]">
         <div className="flex w-max shrink-0 animate-marquee items-center gap-3 whitespace-nowrap px-6 sm:gap-[19px]">
           {INDUSTRIES.map((item) => (
             <Pill key={item.label} item={item} />
@@ -44,9 +46,12 @@ export default function Industries() {
             <Pill key={`dup-${item.label}`} item={item} />
           ))}
         </div>
-        <div className="fade-left pointer-events-none absolute inset-y-0 left-0 w-16 sm:w-[130px]"></div>
-        <div className="fade-right pointer-events-none absolute inset-y-0 right-0 w-16 sm:w-[130px]"></div>
+        <div className="fade-left pointer-events-none absolute inset-y-0 left-0 w-16 sm:w-[60px] lg:w-[100px]"></div>
+        <div className="fade-right pointer-events-none absolute inset-y-0 right-0 w-16 sm:w-[60px] lg:w-[100px]"></div>
       </div>
+
+      {/* Full-width divider below the pills, matching the navbar divider */}
+      <div className="relative left-1/2 mt-8 h-px w-screen -translate-x-1/2 bg-hairline sm:mt-10 lg:mt-[36px]"></div>
     </section>
   );
 }

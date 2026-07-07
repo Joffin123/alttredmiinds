@@ -1,11 +1,12 @@
 import Image from 'next/image';
 import Reveal from './Reveal';
+import Container from './Container';
 
 export default function Hero() {
   return (
-    <section className="relative px-4 pt-10 pb-12 sm:px-8 sm:pt-12 lg:px-[130px] lg:pb-[70px] lg:pt-[52px]">
-      <div className="flex flex-col items-center gap-10 lg:flex-row lg:items-start lg:justify-between lg:gap-0">
-        <div className="w-full max-w-[560px] text-center lg:w-[510px] lg:max-w-none lg:pl-9 lg:pt-[10px] lg:text-left">
+    <section className="relative pt-10 pb-12 sm:pt-12 lg:pb-[59px] lg:pt-4">
+      <Container className="flex flex-col items-center gap-10 lg:flex-row lg:items-start lg:justify-between lg:gap-0">
+        <div className="w-full max-w-[560px] text-center lg:w-[580px] lg:max-w-none lg:pl-[70px] lg:pt-3 lg:text-left">
           <Reveal as="h1" className="text-[30px] font-medium leading-[1.18] text-ink sm:text-[38px] lg:text-[52px] lg:leading-[1.13]">
             Scale Revenue with a Growth Partner, Not Just Another Agency.
           </Reveal>
@@ -28,11 +29,11 @@ export default function Hero() {
           <Reveal delay={260} className="mt-6 flex justify-center lg:mt-[26px] lg:justify-start">
             <a
               href="#cta"
-              className="inline-flex h-[48px] items-center gap-3 rounded-full bg-ink pl-5 pr-2 transition duration-300 hover:scale-[1.03] hover:opacity-90 active:scale-95 sm:h-[52px] sm:pl-6 sm:pr-[9px]"
+              className="group inline-flex h-[48px] items-center gap-3 rounded-full bg-ink pl-5 pr-2 transition-all duration-300 hover:scale-[1.02] hover:opacity-95 active:scale-95 sm:h-[52px] sm:pl-6 sm:pr-[9px]"
             >
               <span className="text-[13px] font-semibold text-white sm:text-sm">Book a Free Growth Strategy Call</span>
-              <span className="flex h-[30px] w-[30px] items-center justify-center rounded-full bg-brand sm:h-[34px] sm:w-[34px]">
-                <svg width="8" height="12" viewBox="0 0 6 10" fill="none">
+              <span className="flex h-[30px] w-[30px] shrink-0 items-center justify-center rounded-full bg-brand transition-transform duration-300 ease-out group-hover:scale-105 sm:h-[34px] sm:w-[34px]">
+                <svg width="8" height="12" viewBox="0 0 6 10" fill="none" className="transition-transform duration-300 ease-out group-hover:translate-x-[2px]">
                   <path d="M1 1L4.573 4.246a.35.35 0 0 1 0 .508L1 9" stroke="#fff" strokeWidth="1.4" strokeLinecap="round" />
                 </svg>
               </span>
@@ -42,18 +43,24 @@ export default function Hero() {
 
         <Reveal
           delay={150}
-          className="hero-shadow h-[280px] w-full max-w-[533px] shrink-0 overflow-hidden rounded-3xl bg-white sm:h-[360px] lg:h-[460px] lg:w-[533px]"
+          className="group relative h-[280px] w-full max-w-[534px] shrink-0 sm:h-[360px] lg:mr-[58px] lg:h-[465px] lg:w-[534px]"
         >
-          <Image
-            src="/images/hero.jpg"
-            alt="The Alttred Miinds team"
-            width={533}
-            height={460}
-            priority
-            className="h-full w-full object-cover transition-transform duration-700 ease-out hover:scale-105"
-          />
+          {/* Glassmorphism backing panel */}
+          <div className="absolute inset-0 translate-x-3 translate-y-3 rounded-3xl border border-white/40 bg-white/25 shadow-[0_20px_60px_-10px_rgba(31,111,74,0.35)] backdrop-blur-xl transition-transform duration-500 ease-out group-hover:translate-x-4 group-hover:translate-y-4"></div>
+          
+          {/* Main image container */}
+          <div className="relative h-full w-full overflow-hidden rounded-3xl transition-transform duration-500 ease-out group-hover:-translate-x-1 group-hover:-translate-y-1">
+            <Image
+              src="/images/hero-image.png"
+              alt="The Alttred Miinds team"
+              fill
+              sizes="(max-width: 1024px) 90vw, 533px"
+              priority
+              className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+            />
+          </div>
         </Reveal>
-      </div>
+      </Container>
     </section>
   );
 }

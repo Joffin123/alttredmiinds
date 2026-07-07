@@ -9,8 +9,8 @@ const STEPS = [
 
 export default function Process() {
   return (
-    <section id="process" className="px-4 pt-16 sm:px-8 sm:pt-20 lg:px-[162px] lg:pt-[100px]">
-      <div className="mb-8 h-px w-full bg-hairline sm:mb-10 lg:mb-[35px] lg:w-[calc(100%+126px)] lg:-translate-x-[63px]"></div>
+    <section id="process" className="px-4 pt-12 sm:px-8 sm:pt-16 lg:px-[96px] lg:pt-[55px]">
+      <div className="mb-8 h-px w-full bg-hairline sm:mb-10 lg:mb-[35px]"></div>
       <Reveal as="p" className="text-center text-[12px] font-semibold uppercase tracking-[0.08em] text-brand sm:text-[13px]">
         Our Process
       </Reveal>
@@ -24,16 +24,18 @@ export default function Process() {
         Predictable Growth
       </Reveal>
 
-      <div className="relative mt-10 sm:mt-12 lg:mt-[54px]">
-        <div className="absolute left-[38px] top-8 hidden h-px w-[997px] bg-muted lg:block"></div>
+      <div className="relative mt-10 sm:mt-12 lg:mt-[54px] lg:pl-[70px]">
+        {/* Symmetrical connecting line: mathematically centers from Circle 1 to Circle 4 */}
+        <div className="absolute left-[102px] right-[calc(25%-105px)] top-8 hidden h-px bg-hairline lg:block"></div>
+
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 sm:gap-y-12 lg:grid-cols-4 lg:gap-x-[74px] lg:gap-y-0">
           {STEPS.map((step, i) => (
-            <Reveal key={step.n} delay={i * 100} className="relative">
-              <div className="step-shadow relative flex h-14 w-14 items-center justify-center rounded-full border border-brand bg-brand transition-transform duration-300 hover:scale-110 sm:h-16 sm:w-16">
+            <Reveal key={step.n} delay={i * 100} className="group relative">
+              <div className="step-shadow relative flex h-14 w-14 items-center justify-center rounded-full border border-brand bg-brand transition-all duration-300 group-hover:scale-110 sm:h-16 sm:w-16">
                 <span className="text-[18px] font-bold text-white sm:text-[22px]">{step.n}</span>
               </div>
-              <h4 className="mt-4 text-[16px] font-bold text-ink sm:mt-5 sm:text-[18px]">{step.title}</h4>
-              <p className="mt-2 max-w-[260px] text-sm leading-relaxed text-muted sm:mt-2.5">{step.desc}</p>
+              <h4 className="mt-4 text-[16px] font-bold text-ink transition-colors duration-300 group-hover:text-brand sm:mt-5 sm:text-[18px]">{step.title}</h4>
+              <p className="mt-2 max-w-[260px] text-sm leading-relaxed text-muted transition-colors duration-300 group-hover:text-ink sm:mt-2.5">{step.desc}</p>
             </Reveal>
           ))}
         </div>

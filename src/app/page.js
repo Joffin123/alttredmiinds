@@ -13,29 +13,34 @@ import Footer from '@/components/Footer';
 
 export default function Home() {
   return (
-    <div className="relative mx-auto w-full max-w-[1440px] overflow-hidden">
-      <div
-        className="pointer-events-none absolute inset-y-0 left-[96px] hidden w-px bg-hairline xl:block"
-        style={{ height: 'calc(100% - 322px)' }}
-      ></div>
-      <div
-        className="pointer-events-none absolute inset-y-0 left-[1323px] hidden w-px bg-hairline xl:block"
-        style={{ height: 'calc(100% - 322px)' }}
-      ></div>
+    <div className="w-full overflow-x-hidden bg-cream">
+      <div className="relative mx-auto w-full max-w-[1440px]">
+        <div
+          className="pointer-events-none absolute inset-y-0 left-[96px] hidden w-px bg-hairline lg:block"
+          style={{ height: 'calc(100% - 322px)' }}
+        ></div>
+        <div
+          className="pointer-events-none absolute inset-y-0 right-[96px] hidden w-px bg-hairline lg:block"
+          style={{ height: 'calc(100% - 322px)' }}
+        ></div>
 
-      <Navbar />
-      <div className="mt-4 h-px w-full bg-hairline"></div>
-      <Hero />
-      <LogoStrip />
-      <Problem />
-      <GrowthEngine />
-      <Capabilities />
-      <Process />
-      <WhyUs />
-      <WhoWeWorkWith />
-      <Industries />
-      <CTA />
-      <Footer />
+        <Navbar />
+        
+        {/* Horizontal border below navbar - stretches full-width to the side ends of the screen */}
+        <div className="w-screen relative left-1/2 -translate-x-1/2 mt-4 h-px bg-hairline"></div>
+        
+        <Hero />
+        <LogoStrip />
+        <Problem />
+        <GrowthEngine />
+        <Capabilities />
+        <Process />
+        <WhyUs />
+        <WhoWeWorkWith />
+        <Industries />
+        <CTA />
+        <Footer />
+      </div>
     </div>
   );
 }

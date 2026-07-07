@@ -15,21 +15,21 @@ export default function GrowthEngine() {
   const active = TABS.find((tab) => tab.id === activeTab);
 
   return (
-    <section className="mt-10 px-4 sm:px-8 lg:mt-12 lg:px-[99px]">
-      <Reveal className="rounded-2xl bg-deep px-6 py-10 sm:px-10 lg:rounded-none lg:px-[91px] lg:py-16">
-        <p className="max-w-[910px] text-lg font-light leading-[1.5] text-white sm:text-xl lg:w-[910px] lg:text-2xl">
+    <section className="pt-10 sm:pt-12 lg:px-[96px] lg:pt-[49px]">
+      <Reveal className="bg-deep px-5 py-12 sm:px-10 lg:px-[90px] lg:pb-[48px] lg:pt-[62px]">
+        <p className="max-w-[910px] text-lg font-light leading-[1.6] text-white sm:text-xl lg:text-[24px]">
           At{' '}
-          <span className="relative inline-block font-semibold">
-            <span className="absolute -inset-x-1 inset-y-0 rounded-md bg-gold opacity-[0.19]"></span>
-            <span className="relative">Alttred Miinds</span>
+          <span className="relative -top-[2px] inline-block rounded-lg bg-gold/[0.18] px-2.5 py-0.5 text-base font-medium text-white lg:text-lg">
+            Alttred Miinds
           </span>
           , we connect paid media, organic search, conversion optimization, creative, and web
           experiences into one measurable growth engine.
         </p>
 
-        <div className="mt-8 flex flex-col overflow-hidden rounded-2xl sm:mt-10 lg:mt-[52px] lg:h-[239px] lg:w-[1086px] lg:flex-row">
+        <div className="mt-8 flex flex-col gap-6 sm:mt-10 lg:mt-[40px] lg:flex-row lg:items-stretch lg:gap-[54px]">
+          {/* Left: Tab List Card */}
           <div
-            className="flex shrink-0 flex-wrap gap-1.5 bg-white/[0.04] p-3 sm:gap-2 sm:p-4 lg:w-[447px] lg:flex-col lg:justify-center lg:gap-1 lg:px-[18px] lg:py-4"
+            className="flex shrink-0 flex-wrap gap-2 rounded-2xl border border-white/[0.08] bg-white/[0.03] p-3 sm:p-4 lg:w-[447px] lg:flex-col lg:justify-center lg:gap-2 lg:px-5 lg:py-6"
             role="tablist"
           >
             {TABS.map((tab) => (
@@ -39,24 +39,31 @@ export default function GrowthEngine() {
                 role="tab"
                 aria-selected={tab.id === activeTab}
                 onClick={() => setActiveTab(tab.id)}
-                className={`h-[38px] rounded-[10px] px-4 text-left text-sm transition-all duration-300 sm:h-[43px] sm:px-[18px] ${
-                  tab.id === activeTab ? 'bg-white font-semibold text-ink' : 'text-white/[0.65] hover:text-white'
+                className={`h-[42px] rounded-xl px-5 text-left text-sm font-medium transition-all duration-300 sm:h-[46px] lg:h-[43px] ${
+                  tab.id === activeTab
+                    ? 'bg-white text-ink shadow-lg scale-[1.02]'
+                    : 'text-white/[0.6] hover:text-white hover:bg-white/[0.03]'
                 }`}
               >
                 {tab.label}
               </button>
             ))}
           </div>
-          <div className="flex flex-1 items-center justify-center px-3 py-6 sm:px-8 sm:py-8 lg:px-[53px] lg:py-[39px]">
-            <div className="flex min-h-[140px] w-full items-center justify-center rounded-[10px] bg-white px-6 py-8 sm:min-h-[160px] lg:h-[180px] lg:px-14 lg:py-0">
-              <p key={activeTab} className="max-w-[393px] animate-[fade-in_0.5s_ease-out] text-center text-lg leading-[1.4] text-black sm:text-xl lg:w-[393px] lg:text-2xl">
-                {active.content}
-              </p>
-            </div>
+
+          {/* Right: Content Card */}
+          <div className="flex min-h-[220px] flex-1 items-center justify-center rounded-2xl bg-white p-6 shadow-2xl sm:p-10 lg:min-h-0 lg:h-[180px] lg:max-w-[505px] lg:self-center lg:p-8">
+            <p
+              key={activeTab}
+              className="max-w-[420px] animate-[fade-in_0.5s_ease-out] text-center text-lg font-medium leading-[1.5] text-ink sm:text-xl lg:text-[22px]"
+            >
+              {active.content}
+            </p>
           </div>
         </div>
 
-        <p className="mt-8 text-lg font-light text-white sm:text-xl lg:mt-[46px] lg:text-2xl">One strategy. One team. Sustainable growth.</p>
+        <p className="mt-8 text-lg font-normal text-white sm:text-xl lg:mt-6 lg:text-[24px]">
+          One strategy. One team. Sustainable growth.
+        </p>
       </Reveal>
     </section>
   );

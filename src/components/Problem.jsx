@@ -1,15 +1,15 @@
 import Reveal from './Reveal';
 
 const ITEMS = [
-  { color: 'border-brand', text: 'Running Google Ads alone won’t scale your business.' },
-  { color: 'border-pink', text: 'Publishing SEO content alone won’t generate predictable growth.' },
-  { color: 'border-sky', text: 'A beautiful website alone won’t increase conversions.' },
-  { color: 'border-gold', text: 'Real growth happens when every part of your marketing works together.' },
+  { color: 'bg-brand', hoverBg: 'hover:bg-brand/[0.04]', text: 'Running Google Ads alone won’t scale your business.' },
+  { color: 'bg-pink', hoverBg: 'hover:bg-pink/[0.05]', text: 'Publishing SEO content alone won’t generate predictable growth.' },
+  { color: 'bg-sky', hoverBg: 'hover:bg-sky/[0.05]', text: 'A beautiful website alone won’t increase conversions.' },
+  { color: 'bg-gold', hoverBg: 'hover:bg-gold/[0.05]', text: 'Real growth happens when every part of your marketing works together.' },
 ];
 
 export default function Problem() {
   return (
-    <section className="px-4 pt-12 sm:px-8 sm:pt-14 lg:px-[130px] lg:pt-[68px]">
+    <section className="px-4 pt-12 sm:px-8 sm:pt-14 lg:px-[96px] lg:pt-[48px]">
       <Reveal as="p" className="text-center text-[12px] font-semibold uppercase tracking-[0.08em] text-brand sm:text-[13px]">
         The Problem
       </Reveal>
@@ -21,17 +21,20 @@ export default function Problem() {
         Most Marketing Doesn&rsquo;t Fail Because of Budget. It Fails Because It&rsquo;s Disconnected.
       </Reveal>
 
-      <div className="mx-auto mt-8 grid gap-3 sm:mt-10 sm:grid-cols-2 lg:mt-14 lg:h-[124px] lg:w-[1116px] lg:grid-cols-4 lg:gap-0 lg:border lg:border-ink/[0.09] lg:bg-white lg:gap-y-0">
+      <div className="mt-8 grid gap-3 sm:mt-10 sm:grid-cols-2 lg:mt-[44px] lg:mx-[55px] lg:h-[124px] lg:grid-cols-4 lg:gap-0 lg:border lg:border-ink/[0.09] lg:bg-white">
         {ITEMS.map((item, i) => (
           <Reveal
             key={item.text}
             delay={160 + i * 90}
-            className={`flex items-center rounded-xl border border-ink/[0.09] bg-white px-5 py-4 border-l-4 ${item.color} shadow-sm transition hover:-translate-y-1 hover:shadow-md lg:rounded-none lg:border-y-0 lg:border-r-0 lg:px-[30px] lg:py-0 lg:shadow-none lg:hover:translate-y-0 lg:hover:shadow-none`}
+            className={`group relative flex items-center overflow-hidden rounded-xl border border-ink/[0.09] bg-white px-6 py-4 ${item.hoverBg} shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md lg:rounded-none lg:border-0 lg:px-[30px] lg:py-0 lg:shadow-none lg:hover:translate-y-0`}
           >
-            <p className="text-sm leading-snug text-muted">{item.text}</p>
+            <span className={`absolute inset-y-0 left-0 w-1 ${item.color}`}></span>
+            <p className="text-sm leading-snug text-muted transition-colors duration-300 group-hover:text-ink">{item.text}</p>
           </Reveal>
         ))}
       </div>
+
+      <div className="mt-10 h-px bg-hairline sm:mt-12 lg:mt-[38px]"></div>
     </section>
   );
 }
