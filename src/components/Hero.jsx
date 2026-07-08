@@ -45,7 +45,7 @@ export default function Hero() {
           className="group relative h-[280px] w-full max-w-[534px] shrink-0 sm:h-[360px] lg:mr-[58px] lg:h-[465px] lg:w-[534px]"
         >
           {/* Main image container */}
-          <div className="relative h-full w-full overflow-hidden rounded-3xl shadow-[0_20px_60px_-10px_rgba(31,111,74,0.35)] transition-transform duration-500 ease-out group-hover:-translate-y-1">
+          <div className="relative h-full w-full overflow-hidden rounded-3xl transition-transform duration-500 ease-out group-hover:-translate-y-1">
             <Image
               src="/images/hero-image.png"
               alt="The Alttred Miinds team"
