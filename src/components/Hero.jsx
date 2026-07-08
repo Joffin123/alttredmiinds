@@ -7,8 +7,8 @@ export default function Hero() {
     <section className="relative pt-10 pb-12 sm:pt-12 lg:pb-[59px] lg:pt-4">
       <Container className="flex flex-col items-center gap-10 lg:flex-row lg:items-start lg:justify-between lg:gap-0">
         <div className="w-full max-w-[560px] text-center lg:w-[580px] lg:max-w-none lg:pl-[70px] lg:pt-3 lg:text-left">
-          <Reveal as="h1" className="text-[30px] font-medium leading-[1.18] text-ink sm:text-[38px] lg:text-[52px] lg:leading-[1.13]">
-            Scale Revenue with a Growth Partner, Not Just Another Agency.
+          <Reveal as="h1" className="text-[30px] font-medium leading-[1.18] text-ink sm:text-[32px] lg:text-[45px] lg:leading-[1.13]">
+            Scale Revenue with<br />a Growth Partner,<br />Not Just Another Agency.
           </Reveal>
           <Reveal
             delay={100}
@@ -40,18 +40,14 @@ export default function Hero() {
             </a>
           </Reveal>
         </div>
-
         <Reveal
           delay={150}
           className="group relative h-[280px] w-full max-w-[534px] shrink-0 sm:h-[360px] lg:mr-[58px] lg:h-[465px] lg:w-[534px]"
         >
-          {/* Glassmorphism backing panel */}
-          <div className="absolute inset-0 translate-x-3 translate-y-3 rounded-3xl border border-white/40 bg-white/25 shadow-[0_20px_60px_-10px_rgba(31,111,74,0.35)] backdrop-blur-xl transition-transform duration-500 ease-out group-hover:translate-x-4 group-hover:translate-y-4"></div>
-          
           {/* Main image container */}
-          <div className="relative h-full w-full overflow-hidden rounded-3xl transition-transform duration-500 ease-out group-hover:-translate-x-1 group-hover:-translate-y-1">
+          <div className="relative h-full w-full overflow-hidden rounded-3xl transition-transform duration-500 ease-out group-hover:-translate-y-1">
             <Image
-              src="/images/hero-image.png"
+              src="/images/hero-image.webp"
               alt="The Alttred Miinds team"
               fill
               sizes="(max-width: 1024px) 90vw, 533px"

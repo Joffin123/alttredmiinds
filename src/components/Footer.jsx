@@ -44,8 +44,8 @@ export default function Footer() {
           <p className="text-[13px] text-ink"><span className="font-bold">Contact</span> Prashant V. Joshi</p>
           <ul className="mt-4 space-y-[11px] text-sm text-muted">
             <li><a href="mailto:prashant@alttredmiinds.com" className="transition hover:text-ink">prashant@alttredmiinds.com</a></li>
-            <li><a href="tel:+19082856359" className="transition hover:text-ink">+1 (908) 285-6359</a></li>
-            <li><a href="#" className="transition hover:text-ink">LinkedIn</a></li>
+            <li><a href="tel:+91 8971816166" className="transition hover:text-ink">+91 8971816166</a></li>
+            <li><a href="https://www.linkedin.com/in/prashantjoshionlinkedin/" className="transition hover:text-ink">LinkedIn</a></li>
           </ul>
         </div>
       </div>
