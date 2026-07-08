@@ -28,14 +28,14 @@ export default function WhoWeWorkWith() {
             <Reveal
               key={label}
               delay={i * 90}
-              className="group flex h-[64px] cursor-pointer items-center gap-3 rounded-2xl border border-ink/[0.09] bg-white px-5 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-brand hover:bg-brand hover:shadow-[0_15px_30px_rgba(31,111,74,0.25)] sm:h-[72px] sm:gap-4 sm:px-6 lg:h-[78px] lg:px-[27px]"
+              className="group flex h-[64px] cursor-pointer items-center gap-3 rounded-2xl border border-ink/[0.09] bg-white px-5 transition-all duration-300 delay-150 ease-out hover:-translate-y-0.5 hover:border-brand hover:bg-brand hover:shadow-[0_15px_30px_rgba(31,111,74,0.25)] hover:delay-100 sm:h-[72px] sm:gap-4 sm:px-6 lg:h-[78px] lg:px-[27px]"
             >
-              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand text-white transition-colors duration-300 group-hover:bg-white group-hover:text-brand sm:h-7 sm:w-7">
+              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand text-white transition-colors duration-300 delay-150 group-hover:bg-white group-hover:text-brand group-hover:delay-100 sm:h-7 sm:w-7">
                 <svg width="10" height="8" viewBox="0 0 10 8" fill="none" className="h-2.5 w-auto">
                   <path d="M1 4L3.5 6.5L9 1.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </span>
-              <p className="text-sm font-medium text-ink transition-colors duration-300 group-hover:text-white sm:text-[15px]">{label}</p>
+              <p className="text-sm font-medium text-ink transition-colors duration-300 delay-150 group-hover:text-white group-hover:delay-100 sm:text-[15px]">{label}</p>
             </Reveal>
           ))}
         </div>
