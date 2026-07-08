@@ -8,7 +8,11 @@ export default function Hero() {
       <Container className="flex flex-col items-center gap-10 lg:flex-row lg:items-start lg:justify-between lg:gap-0">
         <div className="w-full max-w-[560px] text-center lg:w-[580px] lg:max-w-none lg:pl-[70px] lg:pt-3 lg:text-left">
           <Reveal as="h1" className="text-[30px] font-medium leading-[1.18] text-ink sm:text-[32px] lg:text-[45px] lg:leading-[1.13]">
-            Scale Revenue with a Growth Partner, Not Just Another Agency.
+            Scale Revenue with
+            <br />
+            a Growth Partner,
+            <br />
+            Not Just Another Agency.
           </Reveal>
           <Reveal
             delay={100}
