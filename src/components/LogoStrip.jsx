@@ -9,6 +9,7 @@ const CLIENTS = [
   { src: '/images/client-5.png', alt: 'Dot & Key', w: 510, h: 121 },
   { src: '/images/client-6.png', alt: 'Kama Ayurveda', w: 436, h: 126 },
   { src: '/images/client-7.png', alt: 'UV Airspace', w: 985, h: 120 },
+  { src: '/images/client-8.png', alt: 'Salt Oral', w: 985, h: 120 },
 ];
 
 function Logo({ client }) {
