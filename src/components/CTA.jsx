@@ -16,7 +16,7 @@ export default function CTA() {
           strategy that delivers measurable results.
         </p>
         <a
-          href="#"
+          href="https://app.apollo.io/#/meet/ganesh_reddy_e2c/15-min"
           className="group mt-6 inline-flex h-[48px] items-center gap-2.5 rounded-full bg-white pl-5 pr-2 transition-all duration-300 hover:scale-[1.02] hover:opacity-95 active:scale-95 sm:h-[52px] sm:pr-[9px] lg:absolute lg:bottom-[48px] lg:left-[58px] lg:mt-0"
         >
           <span className="text-[13px] font-medium text-black sm:text-sm">Book Your Free Growth Strategy Call</span>
