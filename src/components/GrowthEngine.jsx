@@ -5,9 +5,9 @@ import Reveal from './Reveal';
 
 const TABS = [
   { id: 'acquire', label: 'Acquire', content: 'Reach high-intent customers through Google, Meta, LinkedIn and other performance channels.' },
-  { id: 'rank', label: 'Rank', content: 'Get discovered on search engines and AI platforms with SEO, AIO and GEO strategies.' },
-  { id: 'convert', label: 'Convert', content: 'Turn traffic into revenue with high-converting landing pages, funnels and CRO.' },
-  { id: 'scale', label: 'Scale', content: 'Double down on what works with data-driven budgets, creative and reporting.' },
+  { id: 'rank', label: 'Rank', content: 'Increase visibility across Google and AI-powered search with SEO, AIO and GEO.' },
+  { id: 'convert', label: 'Convert', content: 'Turn more visitors into customers with conversion-focused landing pages and CRO.' },
+  { id: 'scale', label: 'Scale', content: 'Continuously improve performance through creative testing, analytics and optimization.' },
 ];
 
 export default function GrowthEngine() {
