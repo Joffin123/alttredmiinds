@@ -29,7 +29,7 @@ export default function LogoStrip() {
       <div className="flex h-[64px] items-center overflow-hidden border-y border-hairline bg-cream sm:h-[72px] lg:mx-[96px] lg:h-[57px]">
         <div className="flex h-full w-full items-center px-4 sm:px-8 lg:px-0">
           <p className="w-[90px] shrink-0 text-[10px] font-semibold uppercase leading-tight tracking-wider text-muted lg:ml-[28px] lg:w-[104px]">
-            Trusted by Brands<br />Focused on Growth
+            Trusted by Brands
           </p>
 
           <div className="flex h-full flex-1 items-center overflow-hidden pl-4 lg:pl-[76px]">
