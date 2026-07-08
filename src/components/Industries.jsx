@@ -31,7 +31,7 @@ export default function Industries() {
         Growth expertise across your sector
       </Reveal>
       <div className="relative mt-8 overflow-hidden sm:mt-10 lg:mt-[20px] lg:mx-[96px]">
-        <div className="flex w-max shrink-0 animate-marquee items-center gap-3 whitespace-nowrap px-6 sm:gap-[19px]">
+        <div className="flex w-max shrink-0 animate-marquee items-center gap-3 whitespace-nowrap px-6 py-3 sm:gap-[19px]">
           {INDUSTRIES.map((label) => (
             <Pill key={label} label={label} />
           ))}
