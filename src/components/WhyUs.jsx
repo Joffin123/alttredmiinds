@@ -57,7 +57,7 @@ export default function WhyUs() {
               sizes="681px"
               className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/25"></div>
             <div className="absolute inset-0 p-5 pt-6 lg:p-[23px] lg:pt-[39px]">
               <h3 className="max-w-[307px] text-[24px] font-medium leading-[1.2] text-white sm:text-[30px] lg:text-[38px]">Transparent Partnership</h3>
               <p className="absolute bottom-5 left-5 max-w-[371px] text-sm leading-relaxed text-white lg:bottom-[24px] lg:left-[23px]">
