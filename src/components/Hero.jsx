@@ -47,7 +47,7 @@ export default function Hero() {
           {/* Main image container */}
           <div className="relative h-full w-full overflow-hidden rounded-3xl transition-transform duration-500 ease-out group-hover:-translate-y-1">
             <Image
-              src="/images/hero-image.png"
+              src="/images/hero-image.webp"
               alt="The Alttred Miinds team"
               fill
               sizes="(max-width: 1024px) 90vw, 533px"
