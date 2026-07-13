@@ -40,7 +40,7 @@ export default function Navbar() {
 
         <div className="flex items-center gap-2">
           <a
-            href="https://app.apollo.io/#/meet/ganesh_reddy_e2c/15-min"
+            href="https://app.apollo.io/#/meet/5f176/15-min"
             className="group hidden h-[46px] items-center gap-3 rounded-full bg-ink pl-[19px] pr-2.5 transition-all duration-300 hover:scale-[1.02] hover:opacity-95 active:scale-95 lg:flex"
           >
             <span className="text-sm font-medium text-white">Book a Call</span>

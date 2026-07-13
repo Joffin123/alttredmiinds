@@ -32,7 +32,7 @@ export default function Hero() {
           </Reveal>
           <Reveal delay={260} className="mt-6 flex justify-center lg:mt-[26px] lg:justify-start">
             <a
-              href="https://app.apollo.io/#/meet/ganesh_reddy_e2c/15-min"
+              href="https://app.apollo.io/#/meet/5f176/15-min"
               className="group inline-flex h-[48px] items-center gap-3 rounded-full bg-ink pl-5 pr-2 transition-all duration-300 hover:scale-[1.02] hover:opacity-95 active:scale-95 sm:h-[52px] sm:pl-6 sm:pr-[9px]"
             >
               <span className="text-[13px] font-semibold text-white sm:text-sm">Book a Free Growth Strategy Call</span>
