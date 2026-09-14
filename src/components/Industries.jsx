@@ -1,49 +1,75 @@
-import Reveal from './Reveal';
+'use client';
 
-const INDUSTRIES = [
-  'Healthcare',
-  'D2C & eCommerce',
-  'SaaS',
-  'Professional Services',
-  'Real Estate',
-  'Education',
-  'Manufacturing',
-  'Finance',
-  'Hospitality',
-];
-
-function Pill({ label }) {
-  return (
-    <span className="flex h-[40px] shrink-0 cursor-pointer items-center rounded-full border border-ink/[0.09] bg-white px-4 text-[13px] font-medium text-ink transition-all duration-300 delay-150 ease-out hover:-translate-y-1 hover:border-brand hover:bg-brand hover:text-white hover:shadow-[0_10px_20px_rgba(31,111,74,0.2)] hover:delay-100 sm:h-[45px] sm:px-[18px] sm:text-[14.5px]">
-      {label}
-    </span>
-  );
-}
+import { useState } from 'react';
+import Image from 'next/image';
+import { motion } from 'framer-motion';
+import { industries } from '@/data/site';
+import { Reveal, WordReveal, ease } from './motion';
 
 export default function Industries() {
+  const [active, setActive] = useState(0);
+
   return (
-    <section id="industries" className="pt-12 sm:pt-16 lg:pt-[59px]">
-      <div className="mx-4 mb-8 h-px bg-hairline sm:mx-8 sm:mb-10 lg:mx-[96px] lg:mb-[39px]"></div>
-      <Reveal as="p" className="text-center text-[12px] font-semibold uppercase tracking-[0.08em] text-brand sm:text-[13px]">
-        Industries
-      </Reveal>
-      <Reveal as="h2" delay={80} className="mx-auto mt-3 max-w-[439px] px-4 text-center text-[24px] font-medium leading-[1.3] text-ink sm:text-[30px] lg:text-[38px] lg:leading-[1.23]">
-        Growth expertise across your sector
-      </Reveal>
-      <div className="relative mt-8 overflow-hidden sm:mt-10 lg:mt-[20px] lg:mx-[96px]">
-        <div className="flex w-max shrink-0 animate-marquee items-center gap-3 whitespace-nowrap px-6 py-3 sm:gap-[19px]">
-          {INDUSTRIES.map((label) => (
-            <Pill key={label} label={label} />
-          ))}
-          {INDUSTRIES.map((label) => (
-            <Pill key={`dup-${label}`} label={label} />
-          ))}
-        </div>
-        <div className="fade-left pointer-events-none absolute inset-y-0 left-0 w-16 sm:w-[60px] lg:w-[100px]"></div>
-        <div className="fade-right pointer-events-none absolute inset-y-0 right-0 w-16 sm:w-[60px] lg:w-[100px]"></div>
+    <section id="industries" aria-labelledby="industries-title" className="container-site pt-28 lg:pt-[91px]">
+      <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
+        <WordReveal lines={['Where We Play (And Win)']} className="heading-xl text-[36px] sm:text-[48px] lg:text-[56px]" />
+        <Reveal as="p" delay={0.2} className="max-w-[600px] text-[17px] leading-[1.55] text-muted lg:mt-3 lg:text-[19px]">
+          We don&apos;t spread thin across every industry. We go deep in three, because mastery beats mediocrity.
+        </Reveal>
       </div>
-      {/* Full-width divider below the pills, matching the navbar divider */}
-      <div className="relative left-1/2 mt-8 h-px w-screen -translate-x-1/2 bg-hairline sm:mt-10 lg:mt-[36px]"></div>
+      <span id="industries-title" className="sr-only">
+        Industries we specialise in
+      </span>
+
+      <motion.div
+        className="mt-10 h-px origin-left bg-line lg:mt-12"
+        initial={{ scaleX: 0 }}
+        whileInView={{ scaleX: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1.2, ease }}
+      />
+
+      <div className="mt-9 flex flex-col gap-3 lg:h-[496px] lg:flex-row" onMouseLeave={() => setActive(0)}>
+        {industries.map((ind, i) => {
+          const isActive = active === i;
+          return (
+            <motion.article
+              key={ind.id}
+              id={ind.id}
+              tabIndex={0}
+              onMouseEnter={() => setActive(i)}
+              onFocus={() => setActive(i)}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ duration: 0.9, delay: i * 0.12, ease }}
+              style={{ flexGrow: isActive ? 1.75 : 1 }}
+              className="group relative h-[420px] scroll-mt-28 overflow-hidden border border-line bg-ink outline-none transition-[flex-grow] duration-700 ease-[cubic-bezier(.22,1,.36,1)] focus-visible:ring-2 focus-visible:ring-brand lg:h-full lg:basis-0"
+            >
+              <Image
+                src={ind.image}
+                alt=""
+                fill
+                sizes="(min-width: 1024px) 45vw, 100vw"
+                className={`object-cover transition-[transform,filter] duration-700 ease-[cubic-bezier(.22,1,.36,1)] max-lg:scale-100 max-lg:brightness-100 ${
+                  isActive ? 'scale-105 brightness-100' : 'scale-100 brightness-[0.7] lg:grayscale'
+                }`}
+              />
+              <div className="absolute inset-0 bg-ink/[0.08]" />
+              <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.04)_0%,rgba(0,0,0,0.12)_48%,rgba(0,0,0,0.9)_100%)]" />
+
+              <p className="absolute left-[21px] top-[19px] font-mono text-[10px] tracking-[0.04em] text-sand">
+                0{i + 1} / 0{industries.length}
+              </p>
+
+              <div className="absolute inset-x-[21px] bottom-[22px]">
+                <h3 className="whitespace-nowrap font-serif text-[30px] font-light leading-[1.35] text-cream lg:text-[33px]">{ind.title}</h3>
+                <p className="mt-2 max-w-[560px] text-[13.6px] leading-[1.4] text-sand">{ind.body}</p>
+              </div>
+            </motion.article>
+          );
+        })}
+      </div>
     </section>
   );
 }

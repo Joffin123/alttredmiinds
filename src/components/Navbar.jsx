@@ -1,102 +1,148 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import Container from './Container';
-
-const LINKS = [
-  { href: '#services', label: 'Services' },
-  { href: '#industries', label: 'Industries' },
-  { href: '#process', label: 'Our Process' },
-  { href: '#why-us', label: 'Why Us' },
-];
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { AnimatePresence, motion } from 'framer-motion';
+import { navLinks } from '@/data/site';
+import Button from './Button';
+import { ease } from './motion';
 
 export default function Navbar() {
-  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [hash, setHash] = useState('');
+  const pathname = usePathname();
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  // Track which section is on screen so the matching link lights up.
+  useEffect(() => {
+    if (pathname !== '/') return setHash('');
+    const ids = navLinks.map((l) => l.href.split('#')[1]).filter(Boolean);
+    const els = ids.map((id) => document.getElementById(id)).filter(Boolean);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries.filter((e) => e.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (visible) setHash(visible.target.id);
+        else if (window.scrollY < 400) setHash('');
+      },
+      { rootMargin: '-35% 0px -55% 0px', threshold: [0, 0.2, 0.5] }
+    );
+    els.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, [pathname]);
+
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : '';
+  }, [menuOpen]);
+
+  const isActive = (href) => {
+    const [path, id] = href.split('#');
+    if (id) return pathname === '/' && hash === id;
+    if (href === '/') return pathname === '/' && !hash;
+    return pathname === path;
+  };
 
   return (
-    <header className="relative z-30 pt-5 sm:pt-7 lg:pt-9">
-      <Container className="lg:px-3">
-      <div className="nav-shadow flex h-[64px] items-center justify-between rounded-full border border-ink/[0.09] bg-white pl-4 pr-2 sm:pl-6 lg:h-[76px] lg:pl-10 lg:pr-[15px]">
-        <a href="#" className="flex items-center">
-          <Image
-            src="/images/header-logo.png"
-            alt="Alttred Miinds"
-            width={300}
-            height={74}
-            priority
-            className="h-6 w-auto sm:h-7 lg:h-[30px]"
-          />
-        </a>
-
-        <nav className="hidden items-center gap-[30px] text-[14.5px] text-ink lg:flex">
-          {LINKS.map((link) => (
-            <a key={link.href} href={link.href} className="group relative py-1 transition hover:text-brand">
-              {link.label}
-              <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-brand transition-all duration-300 ease-out group-hover:w-full"></span>
-            </a>
-          ))}
-        </nav>
-
-        <div className="flex items-center gap-2">
-          <a
-            href="https://app.apollo.io/#/meet/5f176/15-min"
-            className="group hidden h-[46px] items-center gap-3 rounded-full bg-ink pl-[19px] pr-2.5 transition-all duration-300 hover:scale-[1.02] hover:opacity-95 active:scale-95 lg:flex"
-          >
-            <span className="text-sm font-medium text-white">Book a Call</span>
-            <span className="flex h-[26px] w-[26px] items-center justify-center rounded-full bg-brand transition-transform duration-300 ease-out group-hover:scale-105">
-              <svg width="8" height="10" viewBox="0 0 6 10" fill="none" className="transition-transform duration-300 ease-out group-hover:translate-x-[2px]">
-                <path d="M1 1L4.573 4.246a.35.35 0 0 1 0 .508L1 9" stroke="#fff" strokeWidth="1.4" strokeLinecap="round" />
-              </svg>
-            </span>
-          </a>
-
-          <button
-            type="button"
-            onClick={() => setOpen((v) => !v)}
-            aria-label="Toggle menu"
-            aria-expanded={open}
-            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-ink transition hover:opacity-90 lg:hidden"
-          >
-            <svg width="18" height="14" viewBox="0 0 18 14" fill="none" className="transition-transform duration-300">
-              {open ? (
-                <path d="M1 1L17 13M17 1L1 13" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" />
-              ) : (
-                <path d="M1 1H17M1 7H17M1 13H17" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" />
-              )}
-            </svg>
-          </button>
-        </div>
-      </div>
-
-      <div
-        className={`grid transition-all duration-300 ease-out lg:hidden ${
-          open ? 'mt-3 grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
+    <>
+      <motion.header
+        initial={{ y: -30, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.8, ease }}
+        className={`fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-500 ${
+          scrolled || menuOpen ? 'border-b border-line/60 bg-ink/75 backdrop-blur-xl' : 'border-b border-transparent'
         }`}
       >
-        <div className="overflow-hidden">
-          <div className="nav-shadow flex flex-col gap-1 rounded-3xl border border-ink/[0.09] bg-white p-4">
-            {LINKS.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={() => setOpen(false)}
-                className="rounded-xl px-3 py-2.5 text-[15px] text-ink transition hover:bg-cream hover:text-brand"
-              >
-                {link.label}
-              </a>
-            ))}
-            <a
-              href="#cta"
-              onClick={() => setOpen(false)}
-              className="mt-1 flex h-12 items-center justify-center rounded-full bg-ink text-sm font-medium text-white transition hover:opacity-90"
+        <div className={`mx-auto flex max-w-[1440px] items-center justify-between px-5 transition-[height] duration-500 sm:px-8 lg:px-[70px] ${scrolled ? 'h-[72px]' : 'h-[88px] lg:h-[128px]'}`}>
+          <Link href="/" aria-label="Alttred Miinds home" className="relative z-10 shrink-0" onClick={() => setMenuOpen(false)}>
+            <Image src="/images/logo.png" alt="Alttred Miinds" width={289} height={71} priority className="h-[28px] w-auto lg:h-[34px]" />
+          </Link>
+
+          <nav aria-label="Primary" className="hidden lg:block">
+            <ul className="flex items-center p-1">
+              {navLinks.map((link) => (
+                <li key={link.label}>
+                  <Link
+                    href={link.href}
+                    className="relative flex h-8 items-center rounded-full px-4 text-xs uppercase tracking-[0.08em] text-cream transition-colors duration-300"
+                  >
+                    {isActive(link.href) && (
+                      <motion.span layoutId="nav-pill" className="absolute inset-0 rounded-full bg-[#514e4b]/60" transition={{ type: 'spring', stiffness: 380, damping: 32 }} />
+                    )}
+                    <span className="relative after:absolute after:-bottom-1 after:left-0 after:h-px after:w-full after:origin-left after:scale-x-0 after:bg-cream/60 after:transition-transform after:duration-300 hover:after:scale-x-100">
+                      {link.label}
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <div className="flex items-center gap-3">
+            <Button size="md" arrow={false} className="hidden sm:inline-flex">
+              Request a Strategy Call
+            </Button>
+            <button
+              type="button"
+              className="relative z-10 grid h-11 w-11 place-items-center rounded-full border border-line lg:hidden"
+              aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={menuOpen}
+              onClick={() => setMenuOpen((o) => !o)}
             >
-              Book a Call
-            </a>
+              <span className="relative block h-3 w-5">
+                <span className={`absolute left-0 top-0 h-[1.5px] w-5 bg-cream transition duration-300 ${menuOpen ? 'translate-y-[5.5px] rotate-45' : ''}`} />
+                <span className={`absolute bottom-0 left-0 h-[1.5px] w-5 bg-cream transition duration-300 ${menuOpen ? '-translate-y-[5.5px] -rotate-45' : ''}`} />
+              </span>
+            </button>
           </div>
         </div>
-      </div>
-      </Container>
-    </header>
+      </motion.header>
+
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            className="fixed inset-0 z-40 flex flex-col bg-ink/95 px-5 pb-10 pt-28 backdrop-blur-xl sm:px-8 lg:hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <nav aria-label="Mobile" className="flex-1">
+              <ul className="space-y-1">
+                {navLinks.map((link, i) => (
+                  <motion.li
+                    key={link.label}
+                    initial={{ opacity: 0, y: 24 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.05 + i * 0.05, duration: 0.5, ease }}
+                  >
+                    <Link
+                      href={link.href}
+                      onClick={() => setMenuOpen(false)}
+                      className="flex items-baseline justify-between border-b border-line py-4 font-serif text-[38px] font-light leading-none"
+                    >
+                      {link.label}
+                      <span className="font-mono text-xs text-muted">/0{i + 1}</span>
+                    </Link>
+                  </motion.li>
+                ))}
+              </ul>
+            </nav>
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
+              <Button className="w-full" onClick={() => setMenuOpen(false)}>
+                Request a Strategy Call
+              </Button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }

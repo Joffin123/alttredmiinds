@@ -1,0 +1,114 @@
+'use client';
+
+import { useEffect, useRef, useState } from 'react';
+import { motion, useInView } from 'framer-motion';
+import { stats } from '@/data/site';
+import { ease } from './motion';
+
+const themes = {
+  cream: { card: 'bg-cream text-ink', label: 'text-ink', bar: 'bg-ink' },
+  stone: { card: 'bg-stone text-ink', label: 'text-ink', bar: 'bg-ink' },
+  dark: { card: 'bg-panel text-cream border border-line', label: 'text-sand', bar: 'bg-cream' },
+  blue: {
+    card: 'text-cream bg-[linear-gradient(180deg,#1b74f6_0%,#0d52e0_55%,#0944d4_100%)]',
+    label: 'text-cream',
+    bar: 'bg-cream',
+  },
+};
+
+const smallBars = [35, 67, 71, 104, 108, 141, 145];
+const blueBars = [107, 178, 141, 118, 155, 188, 135, 171, 200, 145, 114, 165, 127, 94];
+
+/** Counts up numeric values ("50+", "12.5 Cr+"); leaves placeholders like "XX+" as-is. */
+function CountUp({ value, start }) {
+  const match = value.match(/^(\d+(?:\.\d+)?)(.*)$/);
+  const [display, setDisplay] = useState(match ? `0${match[2]}` : value);
+
+  useEffect(() => {
+    if (!match || !start) return;
+    const target = parseFloat(match[1]);
+    const decimals = (match[1].split('.')[1] || '').length;
+    let raf;
+    let t0;
+    const tick = (now) => {
+      t0 ??= now;
+      const p = Math.min(1, (now - t0) / 1600);
+      const eased = 1 - Math.pow(1 - p, 3);
+      setDisplay(`${(target * eased).toFixed(decimals)}${match[2]}`);
+      if (p < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [start, value]);
+
+  return <>{display}</>;
+}
+
+function StatCard({ stat, index }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: '-80px' });
+  const t = themes[stat.theme];
+  const isBlue = stat.theme === 'blue';
+  const bars = isBlue ? blueBars : smallBars.slice(0, stat.theme === 'dark' ? 7 : 5);
+
+  return (
+    <motion.div
+      ref={ref}
+      style={{ '--h': `${stat.height}px` }}
+      className={`relative col-span-1 min-h-[240px] overflow-hidden rounded-[24px] lg:h-[var(--h)] lg:min-h-0 ${
+        isBlue ? 'min-h-[300px] lg:w-[370px]' : 'lg:w-[265px]'
+      } ${t.card}`}
+      initial={{ clipPath: 'inset(100% 0% 0% 0% round 24px)', opacity: 0 }}
+      animate={inView ? { clipPath: 'inset(0% 0% 0% 0% round 24px)', opacity: 1 } : {}}
+      transition={{ duration: 1.1, delay: index * 0.14, ease }}
+    >
+      {isBlue && (
+        <div className="pointer-events-none absolute inset-0 bg-[repeating-linear-gradient(110deg,transparent_0_76px,rgba(249,245,239,0.08)_76px_77px)]" />
+      )}
+
+      <div className="relative p-6">
+        <p className={`font-display font-semibold leading-none tracking-[-0.03em] ${isBlue ? 'text-[64px] lg:text-[94px]' : 'text-[46px] lg:text-[65px]'}`}>
+          <CountUp value={stat.value} start={inView} />
+        </p>
+        <p className={`mt-2 max-w-[220px] font-display font-medium leading-[1.08] ${isBlue ? 'text-[23px] lg:text-[29px]' : 'text-[18px] lg:text-[23px]'} ${t.label}`}>
+          {stat.label}
+        </p>
+      </div>
+
+      <div className={`absolute bottom-[28px] flex items-end ${isBlue ? 'left-[25px] gap-[20.4px] bottom-[34px]' : 'left-[23px] gap-[22.4px]'}`} aria-hidden="true">
+        {bars.map((h, i) => (
+          <motion.span
+            key={i}
+            className="block origin-bottom"
+            initial={{ scaleY: 0 }}
+            animate={inView ? { scaleY: 1 } : {}}
+            transition={{ duration: 0.9, delay: index * 0.14 + 0.5 + i * 0.05, ease }}
+          >
+            <motion.span
+              className={`block w-[8px] origin-bottom rounded-full ${t.bar}`}
+              style={{
+                height: isBlue ? h * 0.72 : h * (stat.theme === 'dark' ? 0.9 : 0.75),
+                opacity: isBlue ? 0.9 : 0.16 + i * 0.035,
+              }}
+              animate={isBlue && inView ? { scaleY: [1, 0.7 + ((i * 7) % 5) * 0.05, 1] } : undefined}
+              transition={isBlue ? { duration: 2.2 + (i % 4) * 0.35, repeat: Infinity, ease: 'easeInOut', delay: 1.6 + i * 0.07 } : undefined}
+            />
+          </motion.span>
+        ))}
+      </div>
+    </motion.div>
+  );
+}
+
+export default function Stats() {
+  return (
+    <section aria-label="Results in numbers" className="container-site mt-20 lg:mt-[98px]">
+      <div className="grid grid-cols-2 gap-4 lg:flex lg:items-end lg:justify-center lg:gap-6">
+        {stats.map((stat, i) => (
+          <StatCard key={stat.label} stat={stat} index={i} />
+        ))}
+      </div>
+    </section>
+  );
+}
