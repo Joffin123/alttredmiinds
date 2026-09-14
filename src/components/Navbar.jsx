@@ -4,16 +4,20 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion, useScroll, useSpring } from 'framer-motion';
 import { navLinks } from '@/data/site';
 import Button from './Button';
 import { ease } from './motion';
+import { useSiteReady } from './siteReady';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [hash, setHash] = useState('');
+  const ready = useSiteReady();
   const pathname = usePathname();
+  const { scrollYProgress } = useScroll();
+  const progress = useSpring(scrollYProgress, { stiffness: 200, damping: 40, restDelta: 0.001 });
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -54,7 +58,7 @@ export default function Navbar() {
     <>
       <motion.header
         initial={{ y: -30, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
+        animate={ready ? { y: 0, opacity: 1 } : undefined}
         transition={{ duration: 0.8, ease }}
         className={`fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-500 ${
           scrolled || menuOpen ? 'border-b border-line/60 bg-ink/75 backdrop-blur-xl' : 'border-b border-transparent'
@@ -103,6 +107,12 @@ export default function Navbar() {
             </button>
           </div>
         </div>
+        {/* hairline reading-progress indicator */}
+        <motion.span
+          aria-hidden="true"
+          className="absolute inset-x-0 -bottom-px h-px origin-left bg-gradient-to-r from-brand/0 via-brand to-lime"
+          style={{ scaleX: progress, opacity: scrolled ? 1 : 0 }}
+        />
       </motion.header>
 
       <AnimatePresence>

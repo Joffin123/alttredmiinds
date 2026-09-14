@@ -46,15 +46,23 @@ export default function Industries() {
               style={{ flexGrow: isActive ? 1.75 : 1 }}
               className="group relative h-[420px] scroll-mt-28 overflow-hidden border border-line bg-ink outline-none transition-[flex-grow] duration-700 ease-[cubic-bezier(.22,1,.36,1)] focus-visible:ring-2 focus-visible:ring-brand lg:h-full lg:basis-0"
             >
-              <Image
-                src={ind.image}
-                alt=""
-                fill
-                sizes="(min-width: 1024px) 45vw, 100vw"
-                className={`object-cover transition-[transform,filter] duration-700 ease-[cubic-bezier(.22,1,.36,1)] max-lg:scale-100 max-lg:brightness-100 ${
-                  isActive ? 'scale-105 brightness-100' : 'scale-100 brightness-[0.7] lg:grayscale'
-                }`}
-              />
+              <motion.div
+                className="absolute inset-0"
+                initial={{ scale: 1.12 }}
+                whileInView={{ scale: 1 }}
+                viewport={{ once: true, margin: '-60px' }}
+                transition={{ duration: 1.6, delay: i * 0.12, ease }}
+              >
+                <Image
+                  src={ind.image}
+                  alt=""
+                  fill
+                  sizes="(min-width: 1024px) 45vw, 100vw"
+                  className={`object-cover transition-[transform,filter] duration-700 ease-[cubic-bezier(.22,1,.36,1)] max-lg:scale-100 max-lg:brightness-100 ${
+                    isActive ? 'scale-105 brightness-100' : 'scale-100 brightness-[0.7] lg:grayscale'
+                  }`}
+                />
+              </motion.div>
               <div className="absolute inset-0 bg-ink/[0.08]" />
               <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.04)_0%,rgba(0,0,0,0.12)_48%,rgba(0,0,0,0.9)_100%)]" />
 

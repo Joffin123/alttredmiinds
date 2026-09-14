@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, MotionConfig, motion } from 'framer-motion';
 import ContactForm from './ContactForm';
 import { ease } from './motion';
 
@@ -41,6 +41,8 @@ export function ContactProvider({ children }) {
 
   return (
     <ContactContext.Provider value={{ open, close }}>
+      {/* respect the OS "reduce motion" setting for every framer animation */}
+      <MotionConfig reducedMotion="user">
       {children}
       <AnimatePresence>
         {isOpen && (
@@ -90,6 +92,7 @@ export function ContactProvider({ children }) {
           </motion.div>
         )}
       </AnimatePresence>
+      </MotionConfig>
     </ContactContext.Provider>
   );
 }

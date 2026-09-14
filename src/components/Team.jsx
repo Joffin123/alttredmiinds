@@ -24,13 +24,21 @@ export default function Team() {
           >
             <article className="group overflow-hidden bg-white transition-[transform,box-shadow] duration-500 ease-[cubic-bezier(.22,1,.36,1)] hover:-translate-y-2 hover:shadow-[0_30px_60px_-25px_rgba(255,255,255,0.25)]">
               <div className="relative aspect-[277/304] overflow-hidden bg-stone">
-                <Image
-                  src={person.image}
-                  alt={`${person.name}, ${person.role}`}
-                  fill
-                  sizes="(min-width: 1024px) 277px, (min-width: 480px) 50vw, 100vw"
-                  className="object-cover transition-transform duration-700 ease-[cubic-bezier(.22,1,.36,1)] group-hover:scale-[1.06]"
-                />
+                <motion.div
+                  className="absolute inset-0"
+                  initial={{ scale: 1.12 }}
+                  whileInView={{ scale: 1 }}
+                  viewport={{ once: true, margin: '-60px' }}
+                  transition={{ duration: 1.5, delay: i * 0.1, ease }}
+                >
+                  <Image
+                    src={person.image}
+                    alt={`${person.name}, ${person.role}`}
+                    fill
+                    sizes="(min-width: 1024px) 277px, (min-width: 480px) 50vw, 100vw"
+                    className="object-cover transition-transform duration-700 ease-[cubic-bezier(.22,1,.36,1)] group-hover:scale-[1.06]"
+                  />
+                </motion.div>
               </div>
               <div className="flex items-start justify-between px-[18px] pb-[24px] pt-[18px]">
                 <div>

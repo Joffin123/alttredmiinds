@@ -1,18 +1,24 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { Fragment, useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
+import { useSiteReady } from './siteReady';
 
 export const ease = [0.22, 1, 0.36, 1];
 
-/** Fades and lifts children into view once. */
+/** Fades and lifts children into view once (after the site loader has lifted). */
 export function Reveal({ children, delay = 0, y = 28, className, as = 'div', ...rest }) {
   const Tag = motion[as];
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: '-80px' });
+  const ready = useSiteReady();
+
   return (
     <Tag
+      ref={ref}
       className={className}
       initial={{ opacity: 0, y }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-80px' }}
+      animate={ready && inView ? { opacity: 1, y: 0 } : undefined}
       transition={{ duration: 0.8, delay, ease }}
       {...rest}
     >
@@ -27,14 +33,14 @@ export function Reveal({ children, delay = 0, y = 28, className, as = 'div', ...
  */
 export function WordReveal({ lines, className, as = 'h2', delay = 0, stagger = 0.045, immediate = false, ...rest }) {
   const Tag = motion[as];
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: '-60px' });
+  const ready = useSiteReady();
+  const show = ready && (immediate || inView);
   let wordIndex = 0;
 
-  const trigger = immediate
-    ? { initial: 'hidden', animate: 'show' }
-    : { initial: 'hidden', whileInView: 'show', viewport: { once: true, margin: '-60px' } };
-
   return (
-    <Tag className={className} {...trigger} {...rest}>
+    <Tag ref={ref} className={className} initial="hidden" animate={show ? 'show' : 'hidden'} {...rest}>
       {lines.map((line, li) => {
         const segments = typeof line === 'string' ? [{ text: line }] : line;
         return (
@@ -46,22 +52,25 @@ export function WordReveal({ lines, className, as = 'h2', delay = 0, stagger = 0
                 .map((word, wi) => {
                   const i = wordIndex++;
                   return (
-                    <span key={`${si}-${wi}`} className="inline-block overflow-hidden pb-[0.12em] align-top -mb-[0.12em]">
-                      <motion.span
-                        className={`inline-block ${seg.className ?? ''}`}
-                        variants={{
-                          hidden: { y: '110%', opacity: 0 },
-                          show: {
-                            y: '0%',
-                            opacity: 1,
-                            transition: { duration: 0.9, ease, delay: delay + i * stagger },
-                          },
-                        }}
-                      >
-                        {word}
-                        {' '}
-                      </motion.span>
-                    </span>
+                    // The space sits between the masks, not inside them: a trailing space inside an
+                    // inline-block collapses in some browsers, gluing the words together.
+                    <Fragment key={`${si}-${wi}`}>
+                      <span className="inline-block overflow-hidden pb-[0.12em] align-top -mb-[0.12em]">
+                        <motion.span
+                          className={`inline-block ${seg.className ?? ''}`}
+                          variants={{
+                            hidden: { y: '110%', opacity: 0 },
+                            show: {
+                              y: '0%',
+                              opacity: 1,
+                              transition: { duration: 0.9, ease, delay: delay + i * stagger },
+                            },
+                          }}
+                        >
+                          {word}
+                        </motion.span>
+                      </span>{' '}
+                    </Fragment>
                   );
                 })
             )}

@@ -14,8 +14,9 @@ export function ArrowIcon({ className = '' }) {
   );
 }
 
+// The ::before layer is a soft sheen that sweeps across on hover.
 const base =
-  'group inline-flex items-center justify-center gap-2 rounded-full bg-brand font-medium uppercase tracking-[0.06em] text-white shadow-[0_0_0_0_rgba(53,162,49,0.5)] transition-all duration-300 hover:bg-brand-hover hover:shadow-[0_8px_30px_-6px_rgba(53,162,49,0.6)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand active:scale-[0.98]';
+  'group relative isolate overflow-hidden before:absolute before:inset-y-0 before:-left-3/4 before:-z-10 before:w-1/2 before:skew-x-[-20deg] before:bg-gradient-to-r before:from-transparent before:via-white/25 before:to-transparent before:transition-[left] before:duration-700 before:ease-out hover:before:left-[125%] inline-flex items-center justify-center gap-2 rounded-full bg-brand font-medium uppercase tracking-[0.06em] text-white shadow-[0_0_0_0_rgba(53,162,49,0.5)] transition-all duration-300 hover:bg-brand-hover hover:shadow-[0_8px_30px_-6px_rgba(53,162,49,0.6)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand active:scale-[0.98]';
 
 const sizes = {
   md: 'px-[22px] py-[13px] text-[13px]',

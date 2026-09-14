@@ -2,6 +2,7 @@ import { Inter, Inter_Tight, JetBrains_Mono, Newsreader } from 'next/font/google
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import SiteLoader from '@/components/SiteLoader';
 import { ContactProvider } from '@/components/ContactModal';
 import { site } from '@/data/site';
 
@@ -48,6 +49,10 @@ export default function RootLayout({ children }) {
     <html lang="en" className={`${serif.variable} ${sans.variable} ${display.variable} ${mono.variable}`}>
       <body>
         <ContactProvider>
+          <SiteLoader />
+          <noscript>
+            <style dangerouslySetInnerHTML={{ __html: '#site-loader{display:none!important}' }} />
+          </noscript>
           <a
             href="#main"
             className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-brand focus:px-4 focus:py-2 focus:text-white"

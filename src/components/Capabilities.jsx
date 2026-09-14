@@ -161,7 +161,7 @@ export default function Capabilities() {
               onFocus={() => setActive(i)}
               onClick={() => setActive(i)}
               aria-current={isActive ? 'true' : undefined}
-              className="relative grid cursor-default grid-cols-[48px_1fr] border-t border-line px-4 py-7 lg:px-7 outline-none focus-visible:ring-2 focus-visible:ring-brand/60 lg:min-h-[190px] lg:grid-cols-[100px_448px_1fr_372px] lg:py-[27px]"
+              className="relative grid cursor-pointer grid-cols-[48px_1fr] border-t border-line px-4 py-7 outline-none focus-visible:ring-2 focus-visible:ring-brand/60 lg:min-h-[190px] lg:cursor-default lg:grid-cols-[100px_448px_1fr_372px] lg:px-7 lg:py-[27px]"
             >
               <motion.span
                 aria-hidden="true"
@@ -170,11 +170,28 @@ export default function Capabilities() {
                 animate={{ opacity: isActive ? 1 : 0 }}
                 transition={{ duration: 0.5 }}
               />
+              {/* lime accent that grows down the left edge of the active row */}
+              <motion.span
+                aria-hidden="true"
+                className="pointer-events-none absolute left-0 top-0 h-full w-px origin-top bg-lime"
+                initial={false}
+                animate={{ scaleY: isActive ? 1 : 0 }}
+                transition={{ duration: 0.6, ease }}
+              />
+              {/* plus / minus toggle hint on touch layouts */}
+              <span aria-hidden="true" className="absolute right-4 top-[42px] h-4 w-4 lg:hidden">
+                <span className={`absolute left-0 top-1/2 h-px w-4 transition-colors duration-500 ${isActive ? 'bg-lime' : 'bg-cream/50'}`} />
+                <span
+                  className={`absolute left-0 top-1/2 h-px w-4 transition-[transform,background-color] duration-500 ease-[cubic-bezier(.22,1,.36,1)] ${
+                    isActive ? 'rotate-0 bg-lime' : 'rotate-90 bg-cream/50'
+                  }`}
+                />
+              </span>
               <span className={`relative pt-2 font-sans text-[15px] transition-colors duration-500 lg:pt-[18px] ${isActive ? 'text-lime' : 'text-muted'}`}>
                 /0{i + 1}
               </span>
               <h3
-                className={`relative font-serif text-[36px] font-extralight leading-[1.16] transition-all duration-500 ease-[cubic-bezier(.22,1,.36,1)] sm:text-[46px] lg:text-[57px] ${
+                className={`relative pr-8 font-serif text-[36px] font-extralight leading-[1.16] transition-all lg:pr-0 duration-500 ease-[cubic-bezier(.22,1,.36,1)] sm:text-[46px] lg:text-[57px] ${
                   isActive ? 'text-cream lg:translate-x-3' : 'text-cream/60'
                 }`}
               >
@@ -200,7 +217,8 @@ export default function Capabilities() {
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.45, ease }}
                     >
-                      <div className="pt-5">
+                      {/* side padding leaves room for the fanned-out creative cards */}
+                      <div className="pb-2 pl-8 pt-5">
                         <Visual type={cap.visual} />
                       </div>
                     </motion.div>

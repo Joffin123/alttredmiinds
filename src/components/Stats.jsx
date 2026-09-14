@@ -50,14 +50,22 @@ function StatCard({ stat, index }) {
   const inView = useInView(ref, { once: true, margin: '-80px' });
   const t = themes[stat.theme];
   const isBlue = stat.theme === 'blue';
-  const bars = isBlue ? blueBars : smallBars.slice(0, stat.theme === 'dark' ? 7 : 5);
+  const isDark = stat.theme === 'dark';
+  // Below lg the dark and blue cards span the full row, so the two short cards can sit side by side.
+  const wide = isBlue || isDark;
+  const bars = isBlue ? blueBars : smallBars.slice(0, isDark ? 7 : 5);
+  const barScale = isBlue ? 0.72 : isDark ? 0.9 : 0.75;
 
   return (
     <motion.div
       ref={ref}
       style={{ '--h': `${stat.height}px` }}
-      className={`relative col-span-1 min-h-[240px] overflow-hidden rounded-[24px] lg:h-[var(--h)] lg:min-h-0 ${
-        isBlue ? 'min-h-[300px] lg:w-[370px]' : 'lg:w-[265px]'
+      className={`group relative overflow-hidden rounded-[24px] transition-transform duration-500 ease-[cubic-bezier(.22,1,.36,1)] lg:h-[var(--h)] lg:min-h-0 lg:hover:-translate-y-2 lg:[--m:1] ${
+        isBlue
+          ? 'col-span-2 min-h-[290px] [--m:0.72] lg:w-[370px]'
+          : isDark
+            ? 'col-span-2 min-h-[236px] [--m:0.6] lg:w-[265px]'
+            : 'col-span-1 min-h-[210px] [--m:0.8] lg:w-[265px]'
       } ${t.card}`}
       initial={{ clipPath: 'inset(100% 0% 0% 0% round 24px)', opacity: 0 }}
       animate={inView ? { clipPath: 'inset(0% 0% 0% 0% round 24px)', opacity: 1 } : {}}
@@ -66,17 +74,38 @@ function StatCard({ stat, index }) {
       {isBlue && (
         <div className="pointer-events-none absolute inset-0 bg-[repeating-linear-gradient(110deg,transparent_0_76px,rgba(249,245,239,0.08)_76px_77px)]" />
       )}
+      {/* soft light sweep once the card has been revealed */}
+      <motion.div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-y-0 -left-1/2 w-1/2 skew-x-[-18deg] bg-gradient-to-r from-transparent via-white/[0.14] to-transparent"
+        initial={{ x: '0%' }}
+        animate={inView ? { x: '400%' } : {}}
+        transition={{ duration: 1.4, delay: index * 0.14 + 0.9, ease: 'easeInOut' }}
+      />
 
-      <div className="relative p-6">
-        <p className={`font-display font-semibold leading-none tracking-[-0.03em] ${isBlue ? 'text-[64px] lg:text-[94px]' : 'text-[46px] lg:text-[65px]'}`}>
+      <div className={`relative ${wide ? 'p-6' : 'p-5 lg:p-6'}`}>
+        <p
+          className={`whitespace-nowrap font-display font-semibold leading-none tracking-[-0.03em] ${
+            isBlue ? 'text-[56px] sm:text-[64px] lg:text-[94px]' : wide ? 'text-[44px] lg:text-[65px]' : 'text-[30px] min-[400px]:text-[34px] sm:text-[46px] lg:text-[65px]'
+          }`}
+        >
           <CountUp value={stat.value} start={inView} />
         </p>
-        <p className={`mt-2 max-w-[220px] font-display font-medium leading-[1.08] ${isBlue ? 'text-[23px] lg:text-[29px]' : 'text-[18px] lg:text-[23px]'} ${t.label}`}>
+        <p
+          className={`mt-2 max-w-[220px] font-display font-medium leading-[1.08] ${
+            isBlue ? 'text-[23px] lg:text-[29px]' : wide ? 'text-[18px] lg:text-[23px]' : 'text-[16px] sm:text-[18px] lg:text-[23px]'
+          } ${t.label}`}
+        >
           {stat.label}
         </p>
       </div>
 
-      <div className={`absolute bottom-[28px] flex items-end ${isBlue ? 'left-[25px] gap-[20.4px] bottom-[34px]' : 'left-[23px] gap-[22.4px]'}`} aria-hidden="true">
+      <div
+        className={`absolute flex items-end justify-between lg:right-auto lg:justify-start ${
+          isBlue ? 'bottom-[34px] left-[25px] right-[25px] lg:gap-[20.4px]' : `bottom-[28px] left-[23px] lg:gap-[22.4px] ${isDark ? 'right-auto gap-[22.4px]' : 'right-[23px]'}`
+        }`}
+        aria-hidden="true"
+      >
         {bars.map((h, i) => (
           <motion.span
             key={i}
@@ -88,7 +117,7 @@ function StatCard({ stat, index }) {
             <motion.span
               className={`block w-[8px] origin-bottom rounded-full ${t.bar}`}
               style={{
-                height: isBlue ? h * 0.72 : h * (stat.theme === 'dark' ? 0.9 : 0.75),
+                height: `calc(${h * barScale}px * var(--m))`,
                 opacity: isBlue ? 0.9 : 0.16 + i * 0.035,
               }}
               animate={isBlue && inView ? { scaleY: [1, 0.7 + ((i * 7) % 5) * 0.05, 1] } : undefined}
