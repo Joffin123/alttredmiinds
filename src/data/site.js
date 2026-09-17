@@ -25,21 +25,37 @@ export const navLinks = [
 
 // Two rows of six cells; the label occupies the middle two cells of row one.
 export const clientLogos = {
-  rowOneLeft: [
-    { name: 'Yonder', src: '/images/logos/yonder.png', w: 315, h: 87 },
-    { name: 'Prosper', src: '/images/logos/prosper.png', w: 263, h: 81 },
-  ],
-  rowOneRight: [
-    { name: 'Countingup', src: '/images/logos/countingup.png', w: 361, h: 96 },
-    { name: 'TransferGo', src: '/images/logos/transfergo.png', w: 331, h: 56 },
+  rowOne: [
+    { name: 'Salt', src: '/images/logos/salt.png', w: 315, h: 87 },
+    { name: 'Swiggy', src: '/images/logos/swiggy.png', w: 263, h: 81 },
+    { name: 'UVAirspace', src: '/images/logos/uv_airspace.png', w: 361, h: 96 },
+    { name: 'Calmosis', src: '/images/logos/clamosis.png', w: 331, h: 56 },
+    { name: 'MamaEarth', src: '/images/logos/mamaearth.png', w: 460, h: 98 },
+    { name: 'IFB', src: '/images/logos/ifb.png', w: 198, h: 73 },
   ],
   rowTwo: [
-    { name: 'TransactPay', src: '/images/logos/transactpay.png', w: 460, h: 98 },
-    { name: 'ANNA', src: '/images/logos/anna.png', w: 198, h: 73 },
-    { name: 'Sidekick', src: '/images/logos/sidekick.png', w: 359, h: 57 },
-    { name: 'LettsPay', src: '/images/logos/lettspay.png', w: 322, h: 73 },
-    { name: 'WealthKernel', src: '/images/logos/wealthkernel.png', w: 382, h: 112 },
-    { name: 'AfriChange', src: '/images/logos/africhange.png', w: 446, h: 83 },
+    { name: 'Dot & Key', src: '/images/logos/dot_and_key.png', w: 359, h: 57 },
+    { name: 'Jawa', src: '/images/logos/jawa.png', w: 322, h: 73 },
+    { name: 'Mirraw', src: '/images/logos/mirraw.png', w: 382, h: 112 },
+    { name: 'Yezdi', src: '/images/logos/yezdi.png', w: 446, h: 83 },
+    { name: 'Carbonadno', src: '/images/logos/carbonado.png', w: 460, h: 98 },
+    { name: 'Personal touch skincare', src: '/images/logos/personal_touch_skincare.png', w: 198, h: 73 },
+  ],
+  rowThree: [
+    { name: 'Kama Ayurveda', src: '/images/logos/kama_ayurveda.png', w: 359, h: 57 },
+    { name: 'The Earth Collective', src: '/images/logos/the_earth_collective.png', w: 322, h: 73 },
+    { name: 'AnugagShukhla Speaks', src: '/images/logos/anuragshukla_speaks.png', w: 382, h: 112 },
+    { name: 'Sneh Desai', src: '/images/logos/sneh_desai.png', w: 446, h: 83 },
+    { name: 'The Baatra Numerology', src: '/images/logos/the_batraa_numerology.png', w: 460, h: 98 },
+     { name: 'Arviend Sud', src: '/images/logos/arviend_sud.png', w: 198, h: 73 },
+  ],
+  rowFour: [
+    { name: 'Astro Arun Pandit', src: '/images/logos/astro_arun_pandit.png', w: 359, h: 57 },
+    { name: 'Lamcon', src: '/images/logos/lamcon.png', w: 322, h: 73 },
+    { name: 'Wan', src: '/images/logos/wan.png', w: 382, h: 112 },
+    { name: 'Vastu Shikhar', src: '/images/logos/vastu_shikhar.png', w: 446, h: 83 },
+    { name: 'Skill Nation', src: '/images/logos/skill_nation.png', w: 446, h: 83 },
+    { name: 'Dev Gadhvi', src: '/images/logos/dev_gadhvi.png', w: 446, h: 83 },
   ],
 };
 
