@@ -97,7 +97,7 @@ export default function SiteLoader() {
         >
           {/* the dial zooms out toward the viewer as the page underneath is revealed */}
           <motion.div
-            className="relative h-[620px] w-[620px] shrink-0 sm:h-[760px] sm:w-[760px]"
+            className="relative h-[100vw] w-[100vw] max-h-[620px] max-w-[620px] shrink-0 sm:h-[760px] sm:w-[760px]"
             style={{ maskImage: mask, WebkitMaskImage: mask }}
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
