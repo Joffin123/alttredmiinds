@@ -127,13 +127,13 @@ export const industries = [
     id: 'edtech',
     title: 'EdTech',
     body: 'Enrollments, retention, LTV: we speak fluent edtech, engineering growth from first click to course completion.',
-    image: '/images/industry-edtech.jpg',
+    image: '/images/industry-edtech.png',
   },
   {
     id: 'd2c',
     title: 'D2C',
     body: "We've cracked profitable D2C scaling, from first sale to repeat customer, without torching your margins to get there.",
-    image: '/images/industry-d2c.jpg',
+    image: '/images/industry-d2c.png',
   },
 ];
 
