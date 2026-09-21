@@ -8,18 +8,17 @@ export const site = {
     'Data-backed, creative-led growth for brands who want profit, not just impressions and applause.',
   email: 'hello@alttredminds.com',
   socials: {
-    instagram: 'https://www.instagram.com/',
-    linkedin: 'https://www.linkedin.com/',
-    youtube: 'https://www.youtube.com/',
+    instagram: 'https://www.instagram.com/alttredmiinds',
+    linkedin: 'https://www.linkedin.com/company/alttred-miinds/',
   },
 };
 
 export const navLinks = [
   { label: 'Home', href: '/' },
-  { label: 'Coaches', href: '/#coaches' },
-  { label: 'D2C', href: '/#d2c' },
-  { label: 'Case Studies', href: '/#testimonials' },
-  { label: 'About Us', href: '/#team' },
+  { label: 'Coaches', href: 'https://alttredmiinds.com/coaches/' },
+  { label: 'D2C', href: 'https://alttredmiinds.com/d2c/' },
+  //{ label: 'Case Studies', href: '/#testimonials' },
+  { label: 'About Us', href: '/#pillars' },
   { label: 'Contact Us', href: '/contact' },
 ];
 
@@ -83,10 +82,10 @@ export const pillars = [
 // Values are placeholders from the design — swap "XX" for real numbers
 // (e.g. "50+", "120 Cr+", "35%+") and they will count up on scroll.
 export const stats = [
-  { value: 'XX+', label: 'Brands Hyperscaled', theme: 'cream', height: 255 },
-  { value: 'XX Cr+', label: 'Ad Spend Managed', theme: 'stone', height: 342 },
-  { value: 'XX+', label: 'Years Combined Growth Expertise', theme: 'dark', height: 449 },
-  { value: 'XX%+', label: 'Avg. Profit Uplift', theme: 'blue', height: 653 },
+  { value: '25+', label: 'Brands Hyperscaled', theme: 'cream', height: 255 },
+  { value: '3Cr+', label: 'Ad Spend Managed', theme: 'stone', height: 342 },
+  { value: '12+', label: 'Years Combined Growth Expertise', theme: 'dark', height: 449 },
+  { value: '100%', label: 'Avg. Profit Uplift', theme: 'blue', height: 653 },
 ];
 
 export const capabilities = [
@@ -122,6 +121,7 @@ export const industries = [
     title: 'Coaches & Creators',
     body: 'From your first webinar funnel to your fiftieth cohort launch, we turn expertise into a scalable revenue machine.',
     image: '/images/industry-coaches.jpg',
+    href: 'https://alttredmiinds.com/coaches/'
   },
   {
     id: 'edtech',
@@ -134,6 +134,8 @@ export const industries = [
     title: 'D2C',
     body: "We've cracked profitable D2C scaling, from first sale to repeat customer, without torching your margins to get there.",
     image: '/images/industry-d2c.png',
+    href: 'https://alttredmiinds.com/d2c/'
+
   },
 ];
 
@@ -218,16 +220,15 @@ export const footerColumns = [
   {
     title: 'Verticals',
     links: [
-      { label: 'Coaches & Creators', href: '/#coaches' },
-      { label: 'EdTech', href: '/#edtech' },
-      { label: 'D2C', href: '/#d2c' },
+      { label: 'Coaches & Creators', href: 'https://alttredmiinds.com/coaches/' },
+      { label: 'D2C', href: 'https://alttredmiinds.com/d2c/' },
     ],
   },
   {
     title: 'Company',
     links: [
-      { label: 'About', href: '/#team' },
-      { label: 'Case Studies', href: '/#testimonials' },
+      { label: 'About', href: '/#pillars' },
+      //{ label: 'Case Studies', href: '/#testimonials' },
     ],
   },
   {

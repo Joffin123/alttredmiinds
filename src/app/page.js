@@ -4,7 +4,7 @@ import Pillars from '@/components/Pillars';
 import Stats from '@/components/Stats';
 import Capabilities from '@/components/Capabilities';
 import Industries from '@/components/Industries';
-import Testimonials from '@/components/Testimonials';
+//import Testimonials from '@/components/Testimonials';
 //import Team from '@/components/Team';
 import CTA from '@/components/CTA';
 
@@ -17,7 +17,7 @@ export default function Home() {
       <Stats />
       <Capabilities />
       <Industries />
-      <Testimonials />
+      {/*<Testimonials />*/}
       {/*<Team />*/}
       <CTA />
     </>

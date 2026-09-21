@@ -7,7 +7,7 @@ import { WordReveal, ease } from './motion';
 
 export default function Pillars() {
   return (
-    <section aria-labelledby="pillars-title" className="container-site pt-24 lg:pt-[78px]">
+    <section id="pillars" aria-labelledby="pillars-title" className="container-site pt-24 lg:pt-[78px]">
       <WordReveal
         as="h2"
         lines={['Not An Agency.', 'An Obsession With Your P&L.']}
