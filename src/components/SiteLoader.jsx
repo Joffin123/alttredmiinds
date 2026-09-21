@@ -7,8 +7,8 @@ import Dial from './Dial';
 import { markSiteReady } from './siteReady';
 
 const ease = [0.22, 1, 0.36, 1];
-const MIN_MS = 1500; // always show long enough to read as intentional
-const MAX_MS = 4000; // never hold the page hostage to a slow asset
+const MIN_MS = 650; // always show long enough to read as intentional
+const MAX_MS = 1800; // never hold the page hostage to a slow asset
 const RING = 243; // progress ring radius, sitting on one of the dial's own rings
 
 const mask = 'radial-gradient(circle, #000 35%, transparent 70%)';
@@ -22,9 +22,16 @@ export default function SiteLoader() {
   useEffect(() => {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const min = reduced ? 400 : MIN_MS;
-    let loaded = document.readyState === 'complete';
+    // Ready means "the page is worth looking at": markup parsed and webfonts
+    // resolved. Waiting on `load` would also wait on every below-the-fold
+    // image, which kept the overlay — and the nav under it — up for seconds.
+    let loaded = false;
     const onLoad = () => (loaded = true);
-    if (!loaded) window.addEventListener('load', onLoad, { once: true });
+    const domReady =
+      document.readyState === 'loading'
+        ? new Promise((r) => document.addEventListener('DOMContentLoaded', r, { once: true }))
+        : Promise.resolve();
+    Promise.all([domReady, document.fonts?.ready]).then(onLoad, onLoad);
 
     const root = document.documentElement;
     root.style.overflow = 'hidden';
@@ -52,7 +59,7 @@ export default function SiteLoader() {
         root.style.overflow = '';
         markSiteReady();
         setVisible(false);
-      }, 260);
+      }, 120);
     };
 
     const tick = (now) => {
@@ -74,7 +81,6 @@ export default function SiteLoader() {
       cancelAnimationFrame(raf);
       clearTimeout(failsafe);
       clearTimeout(done);
-      window.removeEventListener('load', onLoad);
       root.style.overflow = '';
     };
   }, []);
@@ -93,7 +99,7 @@ export default function SiteLoader() {
             backgroundSize: '61px 53.4px',
           }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.8, ease: 'easeInOut' }}
+          transition={{ duration: 0.45, ease: 'easeInOut' }}
         >
           {/* the dial zooms out toward the viewer as the page underneath is revealed */}
           <motion.div

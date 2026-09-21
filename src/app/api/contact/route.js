@@ -1,6 +1,18 @@
 import { NextResponse } from 'next/server';
+import nodemailer from 'nodemailer';
+
+export const runtime = 'nodejs';
 
 const MAX = { name: 120, email: 200, company: 160, vertical: 80, budget: 80, message: 5000 };
+
+const LABELS = {
+  name: 'Name',
+  email: 'Email',
+  company: 'Company',
+  vertical: 'Vertical',
+  budget: 'Budget',
+  message: 'Message',
+};
 
 const escape = (s) =>
   String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
@@ -29,32 +41,51 @@ export async function POST(request) {
     return NextResponse.json({ error: 'Please fix the highlighted fields.', errors }, { status: 422 });
   }
 
-  const { RESEND_API_KEY, CONTACT_TO_EMAIL, CONTACT_FROM_EMAIL } = process.env;
+  const {
+    SMTP_HOST = 'smtp.gmail.com',
+    SMTP_PORT = '465',
+    SMTP_USER,
+    SMTP_PASS,
+    CONTACT_TO_EMAIL = 'ganesh@alttredmiinds.com',
+    CONTACT_FROM_EMAIL,
+  } = process.env;
 
-  if (!RESEND_API_KEY || !CONTACT_TO_EMAIL) {
-    // No mail provider configured (local dev): log the lead so nothing is lost.
+  if (!SMTP_USER || !SMTP_PASS) {
+    // No mailbox credentials configured (local dev): log the lead so nothing is lost.
     console.info('[contact] New strategy call request', data);
     return NextResponse.json({ ok: true, delivered: false });
   }
 
   const rows = Object.entries(data)
-    .map(([k, v]) => `<tr><td style="padding:4px 12px 4px 0;color:#777">${k}</td><td>${escape(v || '—')}</td></tr>`)
+    .map(
+      ([k, v]) =>
+        `<tr><td style="padding:4px 12px 4px 0;color:#777">${LABELS[k]}</td><td>${escape(v || '—')}</td></tr>`
+    )
     .join('');
 
-  const res = await fetch('https://api.resend.com/emails', {
-    method: 'POST',
-    headers: { Authorization: `Bearer ${RESEND_API_KEY}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      from: CONTACT_FROM_EMAIL || 'Alttred Miinds <onboarding@resend.dev>',
-      to: CONTACT_TO_EMAIL.split(',').map((s) => s.trim()),
-      reply_to: data.email,
-      subject: `Strategy call request: ${data.name}${data.company ? ` (${data.company})` : ''}`,
-      html: `<h2>New strategy call request</h2><table>${rows}</table>`,
-    }),
-  });
+  const port = Number(SMTP_PORT);
 
-  if (!res.ok) {
-    console.error('[contact] Email delivery failed', res.status, await res.text());
+  try {
+    const transporter = nodemailer.createTransport({
+      host: SMTP_HOST,
+      port,
+      secure: port === 465,
+      auth: { user: SMTP_USER, pass: SMTP_PASS },
+    });
+
+    await transporter.sendMail({
+      // Gmail rewrites From to the authenticated mailbox, so keep them aligned.
+      from: CONTACT_FROM_EMAIL || `Alttred Miinds <${SMTP_USER}>`,
+      to: CONTACT_TO_EMAIL.split(',').map((s) => s.trim()).filter(Boolean),
+      replyTo: `${data.name} <${data.email}>`,
+      subject: `Strategy call request: ${data.name}${data.company ? ` (${data.company})` : ''}`,
+      text: Object.entries(data)
+        .map(([k, v]) => `${LABELS[k]}: ${v || '—'}`)
+        .join('\n'),
+      html: `<h2>New strategy call request</h2><table>${rows}</table>`,
+    });
+  } catch (err) {
+    console.error('[contact] Email delivery failed', err);
     return NextResponse.json({ error: 'We could not send your message. Please email us directly.' }, { status: 502 });
   }
 

@@ -6,7 +6,7 @@ export const site = {
   tagline: "We Don't Do Agency. We Do Alchemy",
   description:
     'Data-backed, creative-led growth for brands who want profit, not just impressions and applause.',
-  email: 'hello@alttredminds.com',
+  email: 'ganesh@alttredmiinds.com',
   socials: {
     instagram: 'https://www.instagram.com/alttredmiinds',
     linkedin: 'https://www.linkedin.com/company/alttred-miinds/',
@@ -127,13 +127,13 @@ export const industries = [
     id: 'edtech',
     title: 'EdTech',
     body: 'Enrollments, retention, LTV: we speak fluent edtech, engineering growth from first click to course completion.',
-    image: '/images/industry-edtech.png',
+    image: '/images/industry-edtech.jpg',
   },
   {
     id: 'd2c',
     title: 'D2C',
     body: "We've cracked profitable D2C scaling, from first sale to repeat customer, without torching your margins to get there.",
-    image: '/images/industry-d2c.png',
+    image: '/images/industry-d2c.jpg',
     href: 'https://alttredmiinds.com/d2c/'
 
   },
