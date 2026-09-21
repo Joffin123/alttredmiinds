@@ -27,7 +27,7 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata = {
-  metadataBase: new URL('https://alttredminds.com'),
+  metadataBase: new URL('https://alttredmiinds.com'),
   title: {
     default: `${site.name} | ${site.tagline}`,
     template: `%s | ${site.name}`,
