@@ -5,12 +5,16 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { budgetOptions, industries } from '@/data/site';
 import { ArrowIcon } from './Button';
 
-const initial = { name: '', email: '', company: '', vertical: '', budget: '', message: '', website: '' };
+const initial = { name: '', email: '', phone: '', company: '', vertical: '', budget: '', message: '', website: '' };
+
+// Optional, but if given it must look like a real number: 7-15 digits, with + ( ) - . and spaces allowed.
+const validPhone = (v) => /^\+?[\d\s().-]+$/.test(v) && v.replace(/\D/g, '').length >= 7 && v.replace(/\D/g, '').length <= 15;
 
 function validate(values) {
   const errors = {};
   if (values.name.trim().length < 2) errors.name = 'Please enter your name.';
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(values.email.trim())) errors.email = 'Please enter a valid email.';
+  if (values.phone.trim() && !validPhone(values.phone.trim())) errors.phone = 'Please enter a valid phone number.';
   if (values.message.trim().length < 10) errors.message = 'A sentence or two helps us prepare (10+ characters).';
   return errors;
 }
@@ -95,10 +99,13 @@ export default function ContactForm({ compact = false, onDone }) {
             <Field label="Work email" error={errors.email}>
               <input name="email" type="email" value={values.email} onChange={update} autoComplete="email" className="field" placeholder="you@brand.com" />
             </Field>
+            <Field label="Phone" error={errors.phone}>
+              <input name="phone" type="tel" inputMode="tel" value={values.phone} onChange={update} autoComplete="tel" className="field" placeholder="+91 98765 43210" />
+            </Field>
             <Field label="Company / Brand">
               <input name="company" value={values.company} onChange={update} autoComplete="organization" className="field" placeholder="Brand name" />
             </Field>
-            <Field label="Vertical">
+            <Field label="Vertical" className={compact ? 'sm:col-span-2' : 'md:col-span-2'}>
               <select name="vertical" value={values.vertical} onChange={update} className="field appearance-none">
                 <option value="">Select one</option>
                 {industries.map((i) => (
@@ -168,9 +175,9 @@ export default function ContactForm({ compact = false, onDone }) {
   );
 }
 
-function Field({ label, error, children }) {
+function Field({ label, error, className = '', children }) {
   return (
-    <label className="block">
+    <label className={`block ${className}`}>
       <span className="mb-2 block text-[13px] text-sand">{label}</span>
       {children}
       <AnimatePresence>

@@ -3,11 +3,12 @@ import nodemailer from 'nodemailer';
 
 export const runtime = 'nodejs';
 
-const MAX = { name: 120, email: 200, company: 160, vertical: 80, budget: 80, message: 5000 };
+const MAX = { name: 120, email: 200, phone: 40, company: 160, vertical: 80, budget: 80, message: 5000 };
 
 const LABELS = {
   name: 'Name',
   email: 'Email',
+  phone: 'Phone',
   company: 'Company',
   vertical: 'Vertical',
   budget: 'Budget',
@@ -36,6 +37,10 @@ export async function POST(request) {
   const errors = {};
   if (data.name.length < 2) errors.name = 'Please enter your name.';
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(data.email)) errors.email = 'Please enter a valid email.';
+  if (data.phone) {
+    const digits = data.phone.replace(/\D/g, '').length;
+    if (!/^\+?[\d\s().-]+$/.test(data.phone) || digits < 7 || digits > 15) errors.phone = 'Please enter a valid phone number.';
+  }
   if (data.message.length < 10) errors.message = 'Please add a little more detail.';
   if (Object.keys(errors).length) {
     return NextResponse.json({ error: 'Please fix the highlighted fields.', errors }, { status: 422 });
