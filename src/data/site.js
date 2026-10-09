@@ -120,7 +120,7 @@ export const industries = [
     id: 'coaches',
     title: 'Coaches & Creators',
     body: 'From your first webinar funnel to your fiftieth cohort launch, we turn expertise into a scalable revenue machine.',
-    image: '/images/industry-coaches.jpg',
+    image: '/images/industry-coaches.gif',
     href: 'https://alttredmiinds.com/coaches/'
   },
   {
