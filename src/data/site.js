@@ -133,7 +133,7 @@ export const industries = [
     id: 'd2c',
     title: 'D2C',
     body: "We've cracked profitable D2C scaling, from first sale to repeat customer, without torching your margins to get there.",
-    image: '/images/industry-d2c.jpg',
+    image: '/images/industry-d2c.gif',
     href: 'https://alttredmiinds.com/d2c/'
 
   },
